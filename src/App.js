@@ -5,12 +5,30 @@ import goodsSortData from './common/data/goodsSort.js'
 
 // this.setState({selected}) es6：默认键值和键名相同
 class App extends Component {
-    // 每行只能选择一个
-    onSelected=(elt,order)=>{
-        
+    constructor(props){
+        super(props)
+        this.state = {
+            selected: []
+        }
     }
+    // 1、把选择的内容呈现在你的选择右边
+    onSelected=(elt, order)=>{
+        let {selected} = this.state
+        selected.push({item: elt, order})
+        this.setState({selected})//键名和键值相同
+    }
+    
     render() {
-       let comp = goodsSortData.map((elt,i)=>{
+        let {selected} = this.state
+        let selectedComp = selected.map((elt)=>{
+            return (
+                <mark key={elt.item.id}>
+                    {elt.item.desc}
+                    <a href="javascript:;" className="close">X</a>
+                </mark>
+            )
+        })
+       let comp = goodsSortData.map((elt)=>{
             return [
                 <li key={elt.id}>
                     {elt.sort}
@@ -19,11 +37,11 @@ class App extends Component {
                             return (
                                 <a key={item.id}
                                    href="javascript:;"
-                                   onClick={()=>this.onSelected(item,elt.order)  }
+                                   onClick={()=>this.onSelected(item,elt.order) }
                                     >
                                     {item.desc}
                                 </a>
-                                )
+                            )
                         })
                     }
                 </li>
@@ -38,8 +56,9 @@ class App extends Component {
                     <nav id="goods-choice" style={{clear:'left'}}>
                         <span>你的选择:</span>
                         <div>
-                            锤子
-                            <span className="close"></span>
+                            {selectedComp}
+                            {/*锤子
+                            <span className="close"></span>*/}
                         </div>
                     </nav>
                     <div id="content-details">
