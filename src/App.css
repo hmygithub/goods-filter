@@ -33,14 +33,15 @@ ul{
   line-height: 25px;
 }
 
-#goods-choice mark{
+#goods-choice div{
   float: left;
   width: 70px;
   height: 22px;
   border: 1px solid #457DD7;
   position: relative;
   font-size: 12px;
-  padding-left: 5px;
+  padding: 0 5px;
+  color: #457DD7;
 }
 
 #goods-choice span{
@@ -55,30 +56,33 @@ ul{
   /*border-radius: 12px;*/
   line-height: 20px;
   text-align: center;
-  /*height: 20px;*/
-  /*width: 20px;*/
-  font-size: 14px;
+  height: 20px;
+  width: 20px;
+  font-size: 16px;
   padding: 1px;
   top: 0;
   right: 0;
   position: absolute;
 }
-
 /*.close::before {*/
   /*content: "\2716";*/
 /*}*/
-
+#goodsSort li{
+  color: #999;
+  font-size: 14px;
+}
 
 #goodsSort li a{
   color: #000;
   font-size: 12px;
   padding: 15px;
   text-decoration: none;
+  height: 25px;
+  line-height: 25px;
 }
 
-#goodsSort li{
-  color: #999;
-  font-size: 14px;
+#goodsSort li a.active{
+  color: #457DD7;
 }
 
 @keyframes App-logo-spin {

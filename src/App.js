@@ -34,29 +34,30 @@ class App extends Component {
         this.setState({selected})//键名和键值相同
     }
 
-    onDelete = (order) =>{
-        console.log(order)
+    onDelete=(order) =>{
         let {selected} = this.state
-        selected.filter((elt,order)=>{
-            return elt.order!==order //返回值为true,会被保留
+        selected=selected.filter((elt)=>{
+            return elt.order!==order
+            //返回值为true,会被保留
         })
         this.setState({selected})
     }
     render() {
         let {selected} = this.state
+        //console.log(selected)
         let selectedComp = selected.map((elt)=>{
             return (
-                <mark key={elt.item.id}>
+                <div key={elt.item.id}>
                     {elt.item.desc}
                     <a
                         onClick={(ev)=>{
                             ev.preventDefault()
-                            ev.propagation()
                             this.onDelete(elt.order)
                             }
                         }
-                        href="javascript:;" className="close">X</a>
-                </mark>
+                        href=""
+                        className="close">x</a>
+                </div>
             )
         })
        let comp = goodsSortData.map((elt)=>{
@@ -67,6 +68,7 @@ class App extends Component {
                         elt.data.map((item)=>{
                             return (
                                 <a key={item.id}
+                                   className={selected.some(elt=>elt.item.id=== item.id) ? 'active':''}
                                    href="javascript:;"
                                    onClick={()=>this.onSelected(item,elt.order) }
                                     >
@@ -87,10 +89,8 @@ class App extends Component {
                     <nav id="goods-choice" style={{clear:'left'}}>
                         <span>你的选择:</span>
                             {selectedComp}
-                            {/*锤子
-                            <span className="close"></span>*/}
                     </nav>
-                    <div id="content-details">
+
                         <ul id="goodsSort">
                             {comp}
                             {/*<li>
@@ -106,7 +106,7 @@ class App extends Component {
                                 <a href="javascript:;">微软</a>
                             </li>*/}
                         </ul>
-                    </div>
+
                 </div>
             </div>
         );
