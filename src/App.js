@@ -14,28 +14,48 @@ class App extends Component {
     // 1、把选择的内容呈现在你的选择右边
     // 2、判断当前行之前有没有被选择
     // 3、排序
+    // 4、点击x删除元素
     onSelected=(elt, order)=>{
         let {selected} = this.state
         let inThere = selected.some((elt)=>elt.order===order)
         if(inThere){
             selected=selected.map(selectedItem=>{
                 if(selectedItem.order===order){
-                    selectedItem.item = selectedItem //替换内容
+                    selectedItem.item = elt//替换为当前选择的内容
                 }
                 return selectedItem
             })
+        }else{
+            selected.push({item: elt, order})
         }
-        selected.push({item: elt, order})
+
+        selected.sort((a,b)=>a.order-b.order)
+
         this.setState({selected})//键名和键值相同
     }
 
+    onDelete = (order) =>{
+        console.log(order)
+        let {selected} = this.state
+        selected.filter((elt,order)=>{
+            return elt.order!==order //返回值为true,会被保留
+        })
+        this.setState({selected})
+    }
     render() {
         let {selected} = this.state
         let selectedComp = selected.map((elt)=>{
             return (
                 <mark key={elt.item.id}>
                     {elt.item.desc}
-                    <a href="javascript:;" className="close">X</a>
+                    <a
+                        onClick={(ev)=>{
+                            ev.preventDefault()
+                            ev.propagation()
+                            this.onDelete(elt.order)
+                            }
+                        }
+                        href="javascript:;" className="close">X</a>
                 </mark>
             )
         })
