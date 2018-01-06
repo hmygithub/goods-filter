@@ -33,7 +33,7 @@ ul{
   line-height: 25px;
 }
 
-#goods-choice div{
+#goods-choice mark{
   float: left;
   width: 70px;
   height: 22px;
@@ -55,8 +55,8 @@ ul{
   /*border-radius: 12px;*/
   line-height: 20px;
   text-align: center;
-  height: 20px;
-  width: 20px;
+  /*height: 20px;*/
+  /*width: 20px;*/
   font-size: 14px;
   padding: 1px;
   top: 0;
@@ -64,9 +64,9 @@ ul{
   position: absolute;
 }
 
-.close::before {
-  content: "\2716";
-}
+/*.close::before {*/
+  /*content: "\2716";*/
+/*}*/
 
 
 #goodsSort li a{

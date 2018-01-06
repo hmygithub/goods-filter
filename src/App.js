@@ -12,12 +12,23 @@ class App extends Component {
         }
     }
     // 1、把选择的内容呈现在你的选择右边
+    // 2、判断当前行之前有没有被选择
+    // 3、排序
     onSelected=(elt, order)=>{
         let {selected} = this.state
+        let inThere = selected.some((elt)=>elt.order===order)
+        if(inThere){
+            selected=selected.map(selectedItem=>{
+                if(selectedItem.order===order){
+                    selectedItem.item = selectedItem //替换内容
+                }
+                return selectedItem
+            })
+        }
         selected.push({item: elt, order})
         this.setState({selected})//键名和键值相同
     }
-    
+
     render() {
         let {selected} = this.state
         let selectedComp = selected.map((elt)=>{
@@ -55,11 +66,9 @@ class App extends Component {
                 <div className="content">
                     <nav id="goods-choice" style={{clear:'left'}}>
                         <span>你的选择:</span>
-                        <div>
                             {selectedComp}
                             {/*锤子
                             <span className="close"></span>*/}
-                        </div>
                     </nav>
                     <div id="content-details">
                         <ul id="goodsSort">
